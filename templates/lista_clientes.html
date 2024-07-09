@@ -1,34 +1,19 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista clientes</title>
-</head>
-<body>
-    <table class="table">
+<table class="table">
+      <tbody>
         <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-          </tr>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">email</th>
+                <th scope="col">senha</th>
+                <th scope="col">ações</th>
+            </tr>
         </thead>
-        <tbody>
+        <tbody id="lista_clientes">
             {% for cliente in clientes%}
+                {% include 'item_cliente.html'%}
+            {% endfor %}
+        </tbody>    
 
-          <tr>
-            <th scope="row">1</th>
-            <td>{{cliente.nome}}</td>
-            <td>{{cliente.email}}</td>
-            <td>
-                <button class="btn btn-primary">Editar</button>
-                <button class="btn btn-danger">Exlcuir</button>
-            </td>
-          </tr>
-            {%endfor%}
-        </tbody>
-      </table>
-</body>
-</html>
+      </tbody>
+</table>
+
