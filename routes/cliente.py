@@ -1,31 +1,36 @@
-from flask import render_template,Blueprint, request
+from flask import render_template,Blueprint, request, redirect, url_for
 from DataBase.cliente import CLIENTES
-
+from DataBase.models.cliente import Cliente
 clientes_route= Blueprint('cliente',__name__)
+
+
+
 
 @clientes_route.route('/')
 def lista_clientes():
-    '''listar clientes'''
-    return render_template('lista_clientes.html', clientes=CLIENTES)
+    
+    cliente = Cliente.select()
+    return render_template('lista_clientes.html', clientes=cliente)
 
 @clientes_route.route('/', methods=['POST'])
 def obter_clientes():
     ''' cirar usuario '''
     data = request.json
-    novo_usuario={
-        "id": len(CLIENTES)+1,
-        'email': data['email'],
-        'senha': data['senha']
-    }
+    novo_usuario=Cliente.create(
+        email = data['email'],
+        senha = data['senha']
+    )
 
-    CLIENTES.append(novo_usuario)
+    
 
     return render_template('item_cliente.html', cliente=novo_usuario)
 
 @clientes_route.route('/new')
 def cria_cliente():
     ''' formulario cadastro cliente '''
-    return render_template('cria_cliente.html')
+    c = request.method
+    
+    return render_template('cria_cliente.html', c=c)
 
 @clientes_route.route('/<int:cliente_id>')
 def detalhe_cliente(cliente_id):

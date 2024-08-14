@@ -1,4 +1,3 @@
-<script defer async src="main.js"></script>
 <form class="c-form" 
       {% if cliente %}
         action="{{url_for('cliente.form_atualizar_cliente', cliente_id=cliente.id) }}" 
@@ -6,7 +5,7 @@
         action="{{url_for('cliente.obter_clientes') }}" 
       {% endif %}
 
-       method='{% if cliente %}PUT{% else %}POST{% endif %}'
+      method='{% if cliente %}PUT{% else %}POST{% endif %}'
       
       {%if cliente%}
             c-swap="#cliente-{{cliente.id}}"
@@ -22,21 +21,25 @@
     
     <div class="mb-3">
         <label  for="exampleInputPassword1" class="form-label">Senha</label>
-        <input name='senha' id="input_senha"
-         type='password' 
+        <input c-target="#btn_senha" name='senha' id="senha"
+        type='password' 
         class="form-control" id="exampleInputPassword1">
     </div>
     
     <div style="display: flex;">
       
-      <button style=" margin-right: 10px;" type="submit" class="btn btn-primary">{% if cliente %} Salvar {%else%} Adicionar cliente {%endif%}</button>
+      <button style=" margin-right: 10px;" type="submit" class="btn btn-primary">
+        {% if cliente %} Salvar {%else%} Adicionar cliente {%endif%}</button>
       
-      
-      <button "
-            id="btn_senha" type="submit"
-             class= 'btn btn-primary'  data-bs-toggle="button"> 
-                Ver senha 
-      </button>
-
+      <form class="c-form" c-reload-container='true'
+      c-swap=""
+      >
+        
+        <button onclick="togglePassword()"
+              id="btn_senha" type="submit" 
+              class= 'btn btn-primary'  data-bs-toggle="button"> 
+              mostrar senha
+        </button>
+      </form>
     </div> 
-  </form>
+</form>
